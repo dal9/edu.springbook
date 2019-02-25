@@ -13,8 +13,14 @@ public class DaoFactory {
         return userDao;
     }
 
-    public ConnectionMaker connectionMaker() {
+    @Bean
+    public ConnectionMaker realConnectionMaker() {
         return new DConnectionMaker();
+    }
+
+    @Bean
+    public ConnectionMaker connectionMaker() {
+        return new CountingConnectionMaker(realConnectionMaker());
     }
 
 }
