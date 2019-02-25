@@ -23,7 +23,7 @@ public class UserDao {
         ps.setString(2, user.getName());
         ps.setString(3, user.getPassword());
 
-        ps.executeQuery();
+        ps.executeUpdate();
 
         ps.close();
         c.close();
