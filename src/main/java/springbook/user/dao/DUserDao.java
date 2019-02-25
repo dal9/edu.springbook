@@ -5,6 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DUserDao extends UserDao {
+    public DUserDao(ConnectionMaker connectionMaker) {
+        super(connectionMaker);
+    }
+
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("org.mariadb.jdbc.Driver");
         Connection c = DriverManager.getConnection(
