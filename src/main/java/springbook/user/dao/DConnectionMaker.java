@@ -7,10 +7,11 @@ import java.sql.SQLException;
 public class DConnectionMaker implements ConnectionMaker {
 
     public Connection makeConnection() throws ClassNotFoundException, SQLException {
-        Class.forName("org.mariadb.jdbc.Driver");
+        Class.forName("com.mysql.jdbc.Driver");
         Connection c = DriverManager.getConnection(
-                "jdbc:mariadb://localhost:3306/springbook", "root", "qwer1234"
+                "jdbc:mysql://35.189.131.79:3306/springbook", "root", "qwer1234"
         );
+
         return c;
     }
 }
