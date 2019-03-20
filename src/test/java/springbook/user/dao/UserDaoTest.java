@@ -2,8 +2,13 @@ package springbook.user.dao;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import springbook.user.domain.User;
 
 import javax.sql.DataSource;
@@ -12,8 +17,10 @@ import java.sql.SQLException;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "/testApplicationContext.xml")
 public class UserDaoTest {
-
+    @Autowired
     private UserDao dao;
 
     private User user1;
@@ -23,9 +30,9 @@ public class UserDaoTest {
     @Before
     public void setUp() {
 
-        dao = new UserDao();
-        DataSource dataSource = new SingleConnectionDataSource("jdbc:mysql://35.189.131.79:3306/testdb", "root", "qwer1234", true);
-        dao.setDataSource(dataSource);
+        //dao = new UserDao();
+        //DataSource dataSource = new SingleConnectionDataSource("jdbc:mysql://35.189.131.79:3306/testdb", "root", "qwer1234", true);
+        //dao.setDataSource(dataSource);
 
         this.user1 = new User("gyumee", "박상철", "springno1");
         this.user2 = new User("leegw700", "이길원", "springno2");
