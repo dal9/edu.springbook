@@ -36,7 +36,10 @@ public abstract class UserDao {
 
         try {
             c = dataSource.getConnection();
-            ps = makeStatement(c);
+
+            StatementStrategy strategy = new DeleteAllStatement();
+            ps = strategy.makePreperPreparedStatement(c);
+
             ps.executeUpdate();
         } catch (SQLException e) {
             throw e;
