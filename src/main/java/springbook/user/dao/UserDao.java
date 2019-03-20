@@ -15,7 +15,7 @@ public class UserDao {
     }
 
     public void add(User user) throws SQLException {
-        StatementStrategy st = new AddStatement();
+        StatementStrategy st = new AddStatement(user);
         jdbcContextWithStatementStrategy(st);
     }
 
