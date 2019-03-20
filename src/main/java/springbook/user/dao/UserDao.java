@@ -6,7 +6,7 @@ import springbook.user.domain.User;
 import javax.sql.DataSource;
 import java.sql.*;
 
-public abstract class UserDao {
+public class UserDao {
 
     private DataSource dataSource;
 
@@ -15,19 +15,8 @@ public abstract class UserDao {
     }
 
     public void add(User user) throws SQLException {
-        Connection c = dataSource.getConnection();
-        PreparedStatement ps = c.prepareStatement(
-                "insert into users(id, name, password) values (?, ?, ?)"
-        );
-
-        ps.setString(1, user.getId());
-        ps.setString(2, user.getName());
-        ps.setString(3, user.getPassword());
-
-        ps.executeUpdate();
-
-        ps.close();
-        c.close();
+        StatementStrategy st = new AddStatement();
+        jdbcContextWithStatementStrategy(st);
     }
 
     public void deleteAll() throws SQLException {
@@ -100,8 +89,6 @@ public abstract class UserDao {
         }
     }
 
-    abstract protected PreparedStatement makeStatement(Connection c) throws SQLException;
-
     public void jdbcContextWithStatementStrategy(StatementStrategy stmt) throws SQLException {
         Connection c = null;
         PreparedStatement ps = null;
@@ -109,7 +96,7 @@ public abstract class UserDao {
         try {
             c = dataSource.getConnection();
 
-            ps = stmt.makePreperPreparedStatement(c);
+            ps = stmt.makePreparedStatement(c);
 
             ps.executeUpdate();
         } catch (SQLException e) {
