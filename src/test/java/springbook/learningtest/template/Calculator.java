@@ -1,6 +1,5 @@
 package springbook.learningtest.template;
 
-import javax.sound.sampled.Line;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,7 +7,7 @@ import java.io.IOException;
 public class Calculator {
 
     public Integer calcSum(String filepath) throws IOException {
-        LineCallback sumCallback = new LineCallback() {
+        LineCallback<Integer> sumCallback = new LineCallback<Integer>() {
             public Integer doSomethingWithLine(String line, Integer value) {
                 return value + Integer.valueOf(line);
             }
@@ -17,12 +16,21 @@ public class Calculator {
     }
 
     public Integer calcMultiply(String filepath) throws IOException {
-        LineCallback multiplyCallback = new LineCallback() {
+        LineCallback<Integer> multiplyCallback = new LineCallback<Integer>() {
             public Integer doSomethingWithLine(String line, Integer value) {
                 return value * Integer.valueOf(line);
             }
         };
         return lineReadTemplate(filepath, multiplyCallback, 1);
+    }
+
+    public String concatenate(String filepath) throws IOException {
+        LineCallback<String> concatenateCallback = new LineCallback<String>() {
+            public String doSomethingWithLine(String line, String value) {
+                return value + line;
+            }
+        };
+        return lineReadTemplate(filepath, concatenateCallback, "");
     }
 
     public Integer fileReadTemplate(String filepath, BufferedReaderCallback callback) throws IOException {
